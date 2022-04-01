@@ -1,5 +1,5 @@
-[
-  {
+{
+  "events": {
     "id": 1,
     "category": "animal welfare",
     "title": "frenz of bunz",
@@ -11,4 +11,4 @@
       "music": true
     }
   }
-]
+}
