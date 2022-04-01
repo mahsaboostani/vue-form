@@ -1,18 +1,69 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <form @submit.prevent="sendForm">
+    <BaseSelect
+      :options="categories"
+      v-model="event.category"
+      label="select a category"
+    />
+    <BaseInput v-model="event.title" label="Title" type="text" />
+    <BaseInput v-model="event.description" label="Description" type="text" />
+    <BaseInput v-model="event.location" label="Location " type="text" />
+    <BaseCheckbox v-model="event.extras.catering" label="Catering" />
+    <BaseCheckbox v-model="event.extras.music" label="Music" />
+    <BaseGroupRadio v-model="event.pets" name="pets" :options="petOptions" />
+  </form>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+//@ is an alias to /src
+import axios from "axios";
+import BaseInput from "@/components/BaseInput.vue";
+import BaseSelect from "@/components/BaseSelect.vue";
+import BaseCheckbox from "@/components/BaseCheckbox.vue";
+import BaseGroupRadio from "@/components/BaseGroupRadio.vue";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    BaseInput,
+    BaseSelect,
+    BaseCheckbox,
+    BaseGroupRadio,
+  },
+  data() {
+    return {
+      categories: [
+        "sustainability",
+        "nature",
+        "animal welfare",
+        "housing",
+        "education",
+        "food",
+        "community",
+      ],
+      event: {
+        category: "",
+        title: "",
+        description: "",
+        location: "",
+        pets: 1,
+        extras: {
+          catering: false,
+          music: false,
+        },
+      },
+      petOptions: [
+        { label: "Yes", value: "1" },
+        { label: "No", value: "0" },
+      ],
+    };
   },
 };
 </script>
+<style>
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
