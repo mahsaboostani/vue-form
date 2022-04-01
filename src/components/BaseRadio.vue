@@ -3,8 +3,8 @@
     type="radio"
     :checked="modelValue === value"
     :value="value"
+    :name="name"
     @change="$emit('update:modelValue', value)"
-    v-bind="$atrrs"
   />
   <label>{{ label }}</label>
 </template>
@@ -22,6 +22,10 @@ export default {
     },
     value: {
       type: [String, Number],
+      required: true,
+    },
+    name: {
+      type: String,
       required: true,
     },
   },

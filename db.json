@@ -1,14 +1,16 @@
 {
-  "events": {
-    "id": 1,
-    "category": "animal welfare",
-    "title": "frenz of bunz",
-    "description": "an frenz",
-    "location": "california",
-    "pets": 1,
-    "extras": {
-      "catering": true,
-      "music": true
+  "events": [
+    {
+      "id": 1,
+      "category": "animal welfare",
+      "title": "frenz of bunz",
+      "description": "an frenz",
+      "location": "california",
+      "pets": 1,
+      "extras": {
+        "catering": true,
+        "music": true
+      }
     }
-  }
+  ]
 }

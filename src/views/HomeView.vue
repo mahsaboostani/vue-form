@@ -11,6 +11,7 @@
     <BaseCheckbox v-model="event.extras.catering" label="Catering" />
     <BaseCheckbox v-model="event.extras.music" label="Music" />
     <BaseGroupRadio v-model="event.pets" name="pets" :options="petOptions" />
+    <button type="submit">submit</button>
   </form>
 </template>
 
@@ -42,6 +43,7 @@ export default {
         "community",
       ],
       event: {
+        id: 2,
         category: "",
         title: "",
         description: "",
@@ -57,6 +59,21 @@ export default {
         { label: "No", value: "0" },
       ],
     };
+  },
+  methods: {
+    sendForm() {
+      axios
+        .post(
+          "https://my-json-server.typicode.com/mahsaboostani/vue-form/events",
+          this.event
+        )
+        .then(function (response) {
+          console.log("Response", response);
+        })
+        .catch(function (err) {
+          console.log("Error", err);
+        });
+    },
   },
 };
 </script>
