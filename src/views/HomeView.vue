@@ -15,13 +15,23 @@
     </fieldset>
     <fieldset>
       <legend>Email</legend>
-      <BaseInput v-model="email" label="Email" type="email" />
-      <span v-show="errors.email" class="fieldError">{{ errors.email }}</span>
+      <BaseInput
+        @change="handleChange"
+        :modelValue="email"
+        label="Email"
+        type="email"
+      />
+      <span class="fieldError">{{ errors.email }}</span>
     </fieldset>
 
     <fieldset>
       <legend>Password</legend>
-      <BaseInput v-model="password" label="Password" type="password" />
+      <BaseInput
+        @change="handleChange"
+        :modelValue="password"
+        label="Password"
+        type="password"
+      />
       <span class="fieldError">{{ errors.password }}</span>
     </fieldset>
 
@@ -135,7 +145,7 @@ export default {
       music: anything,
     };
 
-    const { handleSubmit, errors } = useForm({
+    const { handleSubmit, errors, setFieldValue } = useForm({
       validationSchema,
       initialValues: {
         pets: 1,
@@ -143,6 +153,10 @@ export default {
         music: false,
       },
     });
+    const handleChange = (event) => {
+      setFieldValue("email", event.target.value);
+      setFieldValue("password", event.target.value);
+    };
     const { value: category } = useField("category");
     const { value: title } = useField("title");
     const { value: description } = useField("description");
@@ -167,6 +181,7 @@ export default {
       music,
       onSubmit,
       errors,
+      handleChange,
     };
   },
   name: "HomeView",
