@@ -20,6 +20,10 @@ export default {
       type: [String, Number],
       default: "",
     },
+    error: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>

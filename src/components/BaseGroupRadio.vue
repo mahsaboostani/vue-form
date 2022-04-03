@@ -10,6 +10,7 @@
       :name="name"
       :modelValue="modelValue"
       @update:modelValue="$emit('update:modelValue', $event)"
+      v-bind="$attrs"
     />
   </component>
 </template>
