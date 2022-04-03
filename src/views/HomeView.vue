@@ -56,6 +56,7 @@ import BaseSelect from "@/components/BaseSelect.vue";
 import BaseCheckbox from "@/components/BaseCheckbox.vue";
 import BaseGroupRadio from "@/components/BaseGroupRadio.vue";
 import { useField, useForm } from "vee-validate";
+import * as yup from "yup";
 
 export default {
   data() {
@@ -88,52 +89,28 @@ export default {
     };
   },
   setup() {
-    const required = (value) => {
-      const requiredMessage = "this field is required";
-      if (value === undefined || value === null) {
-        return requiredMessage;
-      }
-      if (!String(value).length) {
-        return requiredMessage;
-      }
+    // email = (value) => {
+    //   if (!value) {
+    //     return "this field is required";
+    //   }
+    //   const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    //   if (!regex.test(String(value).toLowerCase())) {
+    //     return "please enter a valid email";
+    //   }
 
-      return true;
-    };
-    const minLength = (number, value) => {
-      if (String(value).length < number)
-        return "please type at least " + number + "caracter";
-      return true;
-    };
-    const anything = () => {
-      return true;
-    };
-    const validationSchema = {
-      category: required,
-      title: (value) => {
-        const req = required(value);
-        if (req !== true) return req;
-        const min = minLength(3, value);
-        if (min !== true) return min;
-        return true;
-      },
-      description: required,
-      email: (value) => {
-        if (!value) {
-          return "this field is required";
-        }
-        const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        if (!regex.test(String(value).toLowerCase())) {
-          return "please enter a valid email";
-        }
-
-        return true;
-      },
-      password: required,
-      location: undefined,
-      pets: anything,
-      catering: anything,
-      music: anything,
-    };
+    //   return true;
+    // };
+    const validationSchema = yup.object({
+      category: yup.string().required(),
+      title: yup.string().required("A cool title is required").min(3),
+      description: yup.string().required(),
+      password: yup.string().required(),
+      email: yup.string().email("plese enter valid email").required(),
+      location: yup.string(),
+      pets: yup.number(),
+      catering: yup.boolean(),
+      music: yup.boolean(),
+    });
 
     const { handleSubmit, errors } = useForm({
       validationSchema,
@@ -143,6 +120,7 @@ export default {
         music: false,
       },
     });
+
     const { value: category } = useField("category");
     const { value: title } = useField("title");
     const { value: description } = useField("description");
